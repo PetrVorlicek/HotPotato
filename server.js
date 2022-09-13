@@ -84,7 +84,13 @@ function messageHandler(message, socket=null) {
 ///////////////////////////////////////////////
 
 // TODO: Implement the broadcast pattern
-
+function broadcast(data, socketToOmit) {
+  wsServer.clients.forEach( (client) => {
+    if (client.readyState === WebSocket.OPEN && client !== socketToOmit) {
+      client.send(JSON.stringify(data))
+    }
+  });
+}
 
 function handleNewUser(socket) {
   // Until there are 4 players in the game....
@@ -125,7 +131,12 @@ function handleNewUser(socket) {
 
 function passThePotatoTo(newPotatoHolderIndex) {
   // TODO: Broadcast a NEW_POTATO_HOLDER message with the newPotatoHolderIndex
-  
+  const message = {
+    type: SERVER.BROADCAST.NEW_POTATO_HOLDER,
+    payload: { newPotatoHolderIndex: newPotatoHolderIndex },
+  };
+  console.log("Potato passed! " + newPotatoHolderIndex);
+  broadcast(message);
 }
 
 function startTimer() {
