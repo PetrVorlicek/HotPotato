@@ -86,13 +86,13 @@
             updateDisplay("There is no more room in this game!");
             break;
           case 'COUNTDOWN':
-            countDown(payload.clockValue)
+            countDown(payload.clockValue);
             break;
           case 'NEW_POTATO_HOLDER':
-            updateCurrentPotatoHolder(payload.newPotatoHolderIndex)
+            updateCurrentPotatoHolder(payload.newPotatoHolderIndex);
             break;
           case 'GAME_OVER':
-
+            endGame();
             break;
         }
         // For each message type below, call the appropriate helper the proper value

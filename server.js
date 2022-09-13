@@ -152,7 +152,7 @@ function startTimer() {
         type: SERVER.BROADCAST.COUNTDOWN,
         payload: {clockValue: clockValue}
       }
-
+      broadcast(message)
       // decrement until the clockValue reaches 0
       clockValue--;
     }
@@ -163,7 +163,10 @@ function startTimer() {
       nextPlayerIndex = 0; // reset the players index
       
       // TODO: Broadcast 'GAME_OVER'
-   
+      const message = {
+        type: SERVER.BROADCAST.GAME_OVER,
+      }
+      broadcast(message)
     }
   }, 1000);
 }
