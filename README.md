@@ -1,6 +1,7 @@
 # Hot Potato
 
 A WebSockets application demo.
+Made by PV as a part of Codecademy's WebSockets course.
 
 ## Rules
 
