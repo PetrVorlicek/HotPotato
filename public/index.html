@@ -61,10 +61,17 @@
       }
 
       // TODO: Create a new WebSocket connection with the server using the ws protocol
-      const URL = '??://localhost:' + PORT;
+      const URL = 'ws://localhost:' + PORT;
 
-
+      wsClient = new WebSocket(URL);
       // TODO: Define the .onopen() handler
+      wsClient.onopen = (event) => {
+        const newUserMessage = {
+          type: CLIENT.MESSAGE.NEW_USER,
+          payload: {},
+        };
+        wsClient.send(JSON.stringify(newUserMessage))
+      }
         // TODO: Send the server a 'NEW_USER' message
 
       // TODO: Define the .onmessage() handler
