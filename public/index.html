@@ -72,16 +72,36 @@
         };
         wsClient.send(JSON.stringify(newUserMessage))
       }
-        // TODO: Send the server a 'NEW_USER' message
+        
 
       // TODO: Define the .onmessage() handler
+      wsClient.onmessage = (event) => {
+        let {type, payload} = JSON.parse(event.data);
+        console.log(type)
+        switch (type) {
+          case 'PLAYER_ASSIGNMENT':
+            setPlayerIndex(payload.clientPlayerIndex)
+            break;
+          case 'GAME_FULL':
+            updateDisplay("There is no more room in this game!");
+            break;
+          case 'COUNTDOWN':
+
+            break;
+          case 'NEW_POTATO_HOLDER':
+
+            break;
+          case 'GAME_OVER':
+
+            break;
+        }
         // For each message type below, call the appropriate helper the proper value
           // 'GAME_FULL' => updateDisplay(displayText);
           // 'PLAYER_ASSIGNMENT' => setPlayerIndex(playerIndex)
           // 'COUNTDOWN' => countDown(clockValue)
           // 'NEW_POTATO_HOLDER' => updateCurrentPotatoHolder(newPotatoHolderIndex)
           // 'GAME_OVER' => endGame()
-      
+      }
 
       // .onclose is executed when the socket connection is closed
       wsClient.onclose = function() {
