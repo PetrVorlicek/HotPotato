@@ -86,7 +86,7 @@
             updateDisplay("There is no more room in this game!");
             break;
           case 'COUNTDOWN':
-
+            countDown(payload.clockValue)
             break;
           case 'NEW_POTATO_HOLDER':
             updateCurrentPotatoHolder(payload.newPotatoHolderIndex)
@@ -116,14 +116,19 @@
       }
     }
 
-
     // Sets the current potatoHolderIndex ands sends it to the server
     function passThePotatoTo(newPotatoHolderIndex) { 
       // set the potatoHolderIndex to be the player that was clicked on
       potatoHolderIndex = newPotatoHolderIndex;
       
       // TODO: Send the server a 'PASS_POTATO' message with the newPotatoHolderIndex
-      
+      const message = {
+        type: 'PASS_POTATO',
+        payload: {
+          newPotatoHolderIndex: potatoHolderIndex
+        },
+      }
+      wsClient.send(JSON.stringify(message));
     }
 
     ////////////////////////////////////////////////

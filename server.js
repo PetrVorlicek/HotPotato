@@ -59,6 +59,7 @@ function messageHandler(message, socket=null) {
       handleNewUser(socket);
       break;
     case CLIENT.MESSAGE.PASS_POTATO:
+      passThePotatoTo(payload.newPotatoHolderIndex)
       break;
     /*case SERVER.MESSAGE.PLAYER_ASSIGNMENT :
       break;
@@ -147,7 +148,10 @@ function startTimer() {
   const interval = setInterval(() => {
     if (clockValue > 0) {
       // TODO: broadcast 'COUNTDOWN' with the clockValue
-      
+      const message = {
+        type: SERVER.BROADCAST.COUNTDOWN,
+        payload: {clockValue: clockValue}
+      }
 
       // decrement until the clockValue reaches 0
       clockValue--;
